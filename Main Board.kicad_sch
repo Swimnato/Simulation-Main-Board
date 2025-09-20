@@ -7,7 +7,7 @@
 	(title_block
 		(title "Main Universal Panel Board")
 		(date "2025-08-06")
-		(rev "X2")
+		(rev "X4")
 		(company "CMSC")
 		(comment 1 "NF 2025")
 	)
@@ -2129,6 +2129,173 @@
 					(at 0 -3.81 90)
 					(length 1.27)
 					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+		(symbol "Diode:1N5400"
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "D"
+				(at 0 2.54 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "1N5400"
+				(at 0 -2.54 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" "Diode_THT:D_DO-201AD_P15.24mm_Horizontal"
+				(at 0 -4.445 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "http://www.vishay.com/docs/88516/1n5400.pdf"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "50V 3A General Purpose Rectifier Diode, DO-201AD"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Sim.Device" "D"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Sim.Pins" "1=K 2=A"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "diode"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "D*DO?201AD*"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "1N5400_0_1"
+				(polyline
+					(pts
+						(xy -1.27 1.27) (xy -1.27 -1.27)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 1.27 1.27) (xy 1.27 -1.27) (xy -1.27 0) (xy 1.27 1.27)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 1.27 0) (xy -1.27 0)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "1N5400_1_1"
+				(pin passive line
+					(at -3.81 0 0)
+					(length 2.54)
+					(name "K"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 3.81 0 180)
+					(length 2.54)
+					(name "A"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -7865,12 +8032,6 @@
 		(uuid "0ba64b78-7071-4962-948c-1968aeaccccd")
 	)
 	(junction
-		(at 27.94 128.27)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "0dba7199-c3cd-42b3-9e73-e1029691ec0a")
-	)
-	(junction
 		(at 207.01 223.52)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -7991,13 +8152,19 @@
 		(uuid "656ae98d-e47d-4455-9b35-7a2afefb650e")
 	)
 	(junction
+		(at 27.94 128.27)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "65fd2688-0f07-4ae2-9727-c10b80cc4443")
+	)
+	(junction
 		(at 358.14 77.47)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "6f80c00f-f91a-4ca3-93a4-19d5029d0e4d")
 	)
 	(junction
-		(at 29.21 142.24)
+		(at 29.21 148.59)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "88cd058e-a027-4230-bc17-43a60d1aad4f")
@@ -8552,16 +8719,6 @@
 	)
 	(wire
 		(pts
-			(xy 27.94 135.89) (xy 27.94 137.16)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "1cfea621-262c-40e8-8b82-de1bb82e77fe")
-	)
-	(wire
-		(pts
 			(xy 39.37 57.15) (xy 39.37 59.69)
 		)
 		(stroke
@@ -8762,7 +8919,7 @@
 	)
 	(wire
 		(pts
-			(xy 29.21 142.24) (xy 29.21 143.51)
+			(xy 29.21 148.59) (xy 29.21 149.86)
 		)
 		(stroke
 			(width 0)
@@ -9062,7 +9219,7 @@
 	)
 	(wire
 		(pts
-			(xy 27.94 137.16) (xy 25.4 137.16)
+			(xy 27.94 143.51) (xy 25.4 143.51)
 		)
 		(stroke
 			(width 0)
@@ -9532,7 +9689,7 @@
 	)
 	(wire
 		(pts
-			(xy 29.21 139.7) (xy 29.21 142.24)
+			(xy 29.21 146.05) (xy 29.21 148.59)
 		)
 		(stroke
 			(width 0)
@@ -10122,7 +10279,7 @@
 	)
 	(wire
 		(pts
-			(xy 25.4 139.7) (xy 29.21 139.7)
+			(xy 25.4 146.05) (xy 29.21 146.05)
 		)
 		(stroke
 			(width 0)
@@ -10202,7 +10359,7 @@
 	)
 	(wire
 		(pts
-			(xy 25.4 142.24) (xy 29.21 142.24)
+			(xy 25.4 148.59) (xy 29.21 148.59)
 		)
 		(stroke
 			(width 0)
@@ -13341,6 +13498,94 @@
 		)
 	)
 	(symbol
+		(lib_id "Diode:1N5400")
+		(at 27.94 132.08 270)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "0c85cbf0-93cf-41f1-9a2f-10d49050d48f")
+		(property "Reference" "D101"
+			(at 30.48 130.8099 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "STPS5L40RL"
+			(at 30.48 133.3499 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Diode_THT:D_DO-201AD_P15.24mm_Horizontal"
+			(at 23.495 132.08 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://www.st.com/content/ccc/resource/technical/document/datasheet/18/17/66/c2/80/47/46/08/CD00002923.pdf/files/CD00002923.pdf/jcr:content/translations/en.CD00002923.pdf"
+			(at 27.94 132.08 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Diode 40 V 5A Through Hole DO-201AD"
+			(at 27.94 132.08 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Device" "D"
+			(at 27.94 132.08 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Pins" "1=K 2=A"
+			(at 27.94 132.08 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "61c07470-c6f4-4946-8e14-6ab1933eeae5")
+		)
+		(pin "1"
+			(uuid "5773ab74-019d-40f1-ab30-4ceeb82999c5")
+		)
+		(instances
+			(project ""
+				(path "/2aa9f2df-d06f-4a30-97ab-fb4628a40b5a"
+					(reference "D101")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "power:+3.3V")
 		(at 120.65 144.78 0)
 		(unit 1)
@@ -13606,7 +13851,7 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 29.21 143.51 0)
+		(at 29.21 149.86 0)
 		(mirror y)
 		(unit 1)
 		(exclude_from_sim no)
@@ -13616,7 +13861,7 @@
 		(fields_autoplaced yes)
 		(uuid "0f828e55-8a6d-4e9c-ae1e-4ec23e7694ea")
 		(property "Reference" "#PWR074"
-			(at 29.21 149.86 0)
+			(at 29.21 156.21 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13625,7 +13870,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 29.21 148.59 0)
+			(at 29.21 154.94 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13633,7 +13878,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 29.21 143.51 0)
+			(at 29.21 149.86 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13642,7 +13887,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 29.21 143.51 0)
+			(at 29.21 149.86 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13651,7 +13896,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 29.21 143.51 0)
+			(at 29.21 149.86 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16038,7 +16283,7 @@
 	)
 	(symbol
 		(lib_id "New_Panel_Parts:Blade Fuse Holder 3568")
-		(at 27.94 132.08 90)
+		(at 27.94 139.7 90)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -16046,7 +16291,7 @@
 		(dnp no)
 		(uuid "335e6102-79bc-4810-ae18-6eec08dd83d0")
 		(property "Reference" "F1"
-			(at 28.956 132.08 90)
+			(at 28.956 139.7 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16055,7 +16300,7 @@
 			)
 		)
 		(property "Value" "Blade Fuse"
-			(at 25.654 125.73 0)
+			(at 25.654 133.35 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16064,7 +16309,7 @@
 			)
 		)
 		(property "Footprint" "New Panel Parts:FUSE_3568"
-			(at 18.034 131.826 0)
+			(at 18.034 139.446 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16074,7 +16319,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 27.94 132.08 0)
+			(at 27.94 139.7 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16083,7 +16328,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 27.94 132.08 0)
+			(at 27.94 139.7 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16092,7 +16337,7 @@
 			)
 		)
 		(property "PARTREV" "C"
-			(at 18.034 131.826 0)
+			(at 18.034 139.446 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16102,7 +16347,7 @@
 			)
 		)
 		(property "MANUFACTURER" "Keystone"
-			(at 18.034 131.826 0)
+			(at 18.034 139.446 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16112,7 +16357,7 @@
 			)
 		)
 		(property "SNAPEDA_PN" "3568"
-			(at 18.034 131.826 0)
+			(at 18.034 139.446 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16122,7 +16367,7 @@
 			)
 		)
 		(property "MAXIMUM_PACKAGE_HEIGHT" "7.37 mm"
-			(at 18.034 131.826 0)
+			(at 18.034 139.446 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16132,7 +16377,7 @@
 			)
 		)
 		(property "STANDARD" "Manufacturer Recommendations"
-			(at 18.034 131.826 0)
+			(at 18.034 139.446 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -21853,7 +22098,7 @@
 	)
 	(symbol
 		(lib_id "main-eagle-import:DCJ0303")
-		(at 17.78 139.7 0)
+		(at 17.78 146.05 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -21861,7 +22106,7 @@
 		(dnp no)
 		(uuid "8f7c7299-773c-43a9-b776-c5b112dbffac")
 		(property "Reference" "J99"
-			(at 15.24 135.89 0)
+			(at 15.24 142.24 0)
 			(effects
 				(font
 					(size 1.778 1.5113)
@@ -21870,7 +22115,7 @@
 			)
 		)
 		(property "Value" "VIN"
-			(at 15.24 146.05 0)
+			(at 15.24 152.4 0)
 			(effects
 				(font
 					(size 1.778 1.5113)
@@ -21879,7 +22124,7 @@
 			)
 		)
 		(property "Footprint" "Connector_BarrelJack:BarrelJack_Horizontal"
-			(at 17.78 139.7 0)
+			(at 17.78 146.05 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -21888,7 +22133,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 17.78 139.7 0)
+			(at 17.78 146.05 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -21897,7 +22142,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 17.78 139.7 0)
+			(at 17.78 146.05 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -23648,7 +23893,7 @@
 			)
 		)
 		(property "Value" "NEOPIXEL AUX"
-			(at 29.718 152.4 0)
+			(at 31.75 152.4 0)
 			(effects
 				(font
 					(size 1.778 1.5113)

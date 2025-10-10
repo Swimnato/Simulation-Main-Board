@@ -16,8 +16,6 @@
 #define MAIN_BOARD_LCD_RESET 4
 #define MAIN_BOARD_LCD_DC 21
 
-SPIClass main_board_spi;
-
 
 #define MAIN_BOARD_WS2812_PIN 40
 
@@ -37,7 +35,7 @@ SPIClass main_board_spi;
 #define MAIN_BOARD_UART_0_RTS 15
 
 #define MAIN_BOARD_UART_1_TX 17
-#define MAIN_BOARD_UART_1_TX 18
+#define MAIN_BOARD_UART_1_RX 18
 
 
 #define MAIN_BOARD_I2C_SDA 3
@@ -45,6 +43,5 @@ SPIClass main_board_spi;
 
 
 #define MAIN_BOARD_SPKR 7
-
 
 #endif

@@ -1,6 +1,7 @@
 #include <Adafruit_NeoPixel.h>
 #include <ESP32Servo.h>
 #include <MainBoard.h>
+#include <Adafruit_ILI9341.h>
 
 
 #define LED_COUNT 1
@@ -8,6 +9,7 @@
 Servo servo;
 
 Adafruit_NeoPixel strip(LED_COUNT, MAIN_BOARD_WS2812_PIN, NEO_GRB + NEO_KHZ800);
+Adafruit_ILI9341 screen();
 
 // Fill strip pixels one after another with a color. Strip is NOT cleared
 // first; anything there will be covered pixel by pixel. Pass in color

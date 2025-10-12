@@ -2,14 +2,32 @@
 #include <ESP32Servo.h>
 #include <MainBoard.h>
 #include <Adafruit_ILI9341.h>
+#include <Wire.h>
+#include <Ethernet3.h>
+#include <SdFat.h>
 
+#define TEST_ETHERNET false
+#define TEST_SD false
+#define TEST_SERVO false
+#define TEST_WS2812 false
+#define TEST_I2C true
+#define TEST_DIGITAL true
+#define TEST_ANALOG false
 
 #define LED_COUNT 1
 
 Servo servo;
 
 Adafruit_NeoPixel strip(LED_COUNT, MAIN_BOARD_WS2812_PIN, NEO_GRB + NEO_KHZ800);
-Adafruit_ILI9341 screen();
+
+
+byte mac[] = {
+  0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED
+};
+IPAddress ip(192, 168, 1, 177);
+EthernetServer server(80);
+
+SdFs sd;
 
 // Fill strip pixels one after another with a color. Strip is NOT cleared
 // first; anything there will be covered pixel by pixel. Pass in color
@@ -84,38 +102,204 @@ void theaterChaseRainbow(int wait) {
 }
 
 
+void scanI2C(){
+  byte error, address;
+  int nDevices;
+
+  Serial.println("Scanning...");
+
+  nDevices = 0;
+  for(address = 1; address < 127; address++ )
+  {
+    // The i2c_scanner uses the return value of
+    // the Write.endTransmisstion to see if
+    // a device did acknowledge to the address.
+    Wire.beginTransmission(address);
+    error = Wire.endTransmission();
+
+    if (error == 0)
+    {
+      Serial.print("I2C device found at address 0x");
+      if (address<16)
+        Serial.print("0");
+      Serial.print(address,HEX);
+      Serial.println("  !");
+
+      nDevices++;
+    }
+    else if (error==4)
+    {
+      Serial.print("Unknown error at address 0x");
+      if (address<16)
+        Serial.print("0");
+      Serial.println(address,HEX);
+    }
+  }
+  if (nDevices == 0)
+    Serial.println("No I2C devices found\n");
+  else
+    Serial.println("done\n");
+}
+
+void scanEthClients(){
+  EthernetClient client = server.available();
+  if (client) {
+    Serial.println("new client");
+    // an http request ends with a blank line
+    boolean currentLineIsBlank = true;
+    while (client.connected()) {
+      if (client.available()) {
+        char c = client.read();
+        Serial.write(c);
+        // if you've gotten to the end of the line (received a newline
+        // character) and the line is blank, the http request has ended,
+        // so you can send a reply
+        if (c == '\n' && currentLineIsBlank) {
+          // send a standard http response header
+          client.println("HTTP/1.1 200 OK");
+          client.println("Content-Type: text/html");
+          client.println("Connection: close");  // the connection will be closed after completion of the response
+          client.println("Refresh: 5");  // refresh the page automatically every 5 sec
+          client.println();
+          client.println("<!DOCTYPE HTML>");
+          client.println("<html>");
+          // output the value of each analog input pin
+          for (int analogChannel = 0; analogChannel < 6; analogChannel++) {
+            int sensorReading = analogRead(analogChannel);
+            client.print("analog input ");
+            client.print(analogChannel);
+            client.print(" is ");
+            client.print(sensorReading);
+            client.println("<br />");
+          }
+          client.println("</html>");
+          break;
+        }
+        if (c == '\n') {
+          // you're starting a new line
+          currentLineIsBlank = true;
+        }
+        else if (c != '\r') {
+          // you've gotten a character on the current line
+          currentLineIsBlank = false;
+        }
+      }
+    }
+    // give the web browser time to receive the data
+    delay(1);
+    // close the connection:
+    client.stop();
+    Serial.println("client disconnected");
+  }
+}
+
 void setup() {
   MainBoardStart();
 
-  servo.attach(MAIN_BOARD_SERVO_1_PIN);
+  #if TEST_SD
+  if (!sd.cardBegin(SdSpiConfig(MAIN_BOARD_SD_CS, SHARED_SPI, SD_SCK_MHZ(133)))) {
+    Serial.println(F(
+        "\nSD initialization failed.\n"
+        "Do not reformat the card!\n"
+        "Is the card correctly inserted?\n"
+        "Is there a wiring/soldering problem?\n"));
+    if (isSpi(SdSpiConfig(MAIN_BOARD_SD_CS, SHARED_SPI, SD_SCK_MHZ(133)))) {
+      Serial.println(F(
+          "Is SD_CS_PIN set to the correct value?\n"
+          "Does another SPI device need to be disabled?\n"));
+    }
+    return;
+  } else{
+    Serial.println("SD INITIALIZED CORRECTLY");
+  }
+  #endif
 
+  #if TEST_ETHERNET
+  Ethernet.setCsPin(MAIN_BOARD_ETHERNET_CS);
+  Ethernet.setHostname("MainBoardTest");
+  if(!Ethernet.begin(mac)){
+    Serial.println("Ethernet Failed to initialize using DHCP!");
+    Ethernet.begin(mac, ip);
+  }
+  server.begin();
+  Serial.print("server is at ");
+  Serial.println(Ethernet.localIP());
+  #endif
+  #if TEST_SERVO
+  servo.attach(MAIN_BOARD_SERVO_1_PIN);
+  #endif
+  #if TEST_WS2812
   strip.begin();           // INITIALIZE NeoPixel strip object (REQUIRED)
   strip.show();            // Turn OFF all pixels ASAP
   strip.setBrightness(50); // Set BRIGHTNESS to about 1/5 (max = 255)
+  #endif
+  Serial.print("Initialization Complete @");
+  Serial.print(millis());
+  Serial.println("ms");
 }
 
 
 void loop() {
   // Fill along the length of the strip in various colors...
-  servo.write(0);
+  #if TEST_ANALOG
+  uint8_t iterator = 0;
+  while(iterator != 128){
+    Serial.print("Getting analog reading from port ");
+    Serial.print(iterator);
+    Serial.print(" : ");
+    Serial.println(getAnalogMux(iterator));
+    iterator++;
+    if(iterator == 128){
+      iterator = 0;
+      unsigned long startTime = micros();
+      while(iterator != 128){
+        getAnalogMux(iterator);
+        iterator++;
+      }
+      unsigned long endTime = micros();
+      Serial.print("Read all ports in ");
+      Serial.print(endTime - startTime);
+      Serial.println("us");
+      delay(20000);
+    }
+  }
+  
+  #endif
+
+  #if TEST_ETHERNET
+  scanEthClients();
+  #endif
+  #if TEST_WS2812
   colorWipe(strip.Color(255,   0,   0), 50); // Red
-  servo.write(25);
   colorWipe(strip.Color(  0, 255,   0), 50); // Green
-  servo.write(50);
   colorWipe(strip.Color(  0,   0, 255), 50); // Blue
-  servo.write(75);
 
   // Do a theater marquee effect in various colors...
-  servo.write(100);
   theaterChase(strip.Color(127, 127, 127), 50); // White, half brightness
-  servo.write(125);
   theaterChase(strip.Color(127,   0,   0), 50); // Red, half brightness
-  servo.write(150);
   theaterChase(strip.Color(  0,   0, 127), 50); // Blue, half brightness
-  servo.write(175);
 
   rainbow(10);             // Flowing rainbow cycle along the whole strip
-  servo.write(75);
   theaterChaseRainbow(50); // Rainbow-enhanced theaterChase variant
+  #endif
+
+  #if TEST_SERVO
+  for(int i = 0; i < 180; i++){
+    servo.write(i);
+    delay(10);
+  }
+  delay(150);
+  scanEthClients();
+  for(int i = 180; i >= 0; i--){
+    servo.write(i);
+    delay(10);
+  }
+  #endif
+  #if TEST_I2C & !TEST_DIGITAL
+  scanI2C();
+  #endif
+  #if TEST_DIGITAL
+  
+  #endif
 }
 

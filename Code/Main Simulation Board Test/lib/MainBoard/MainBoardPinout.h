@@ -44,4 +44,14 @@
 
 #define MAIN_BOARD_SPKR 7
 
+
+#define MAIN_BOARD_ANALOG_MUX_IN 1
+
+
+#define NUM_DIGITAL_IO_EXPANDERS 4
+#define DIGITAL_IO_EXPANDER_BASE_ADDR 0x21
+
+
+#define I2C_MUX_ADDR 0x70;
+
 #endif

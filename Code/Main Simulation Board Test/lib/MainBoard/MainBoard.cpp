@@ -3,6 +3,8 @@
 #define MAIN_BOARD_CPP
 #include <TCA9555.h>
 
+#define VERSION_MAIN_BOARD_CPP "REV: X0"
+
 static bool I2CMuxInit = false;
 
 SPIClass mainBoardSpi = SPIClass(HSPI);

@@ -3,6 +3,7 @@
 #include <Wire.h>
 #include <SPI.h>
 
+#define VERSION_MAIN_BOARD_PINOUT_H "REV: X0"
 
 #define MAIN_BOARD_MOSI 11
 #define MAIN_BOARD_MISO 13

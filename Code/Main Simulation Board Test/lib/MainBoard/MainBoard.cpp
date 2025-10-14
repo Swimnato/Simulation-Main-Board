@@ -7,6 +7,8 @@ static bool I2CMuxInit = false;
 
 SPIClass mainBoardSpi = SPIClass(HSPI);
 
+HardwareSerial MainBoardSerialAlt(1);
+
 TCA9535* IO_Expanders[NUM_DIGITAL_IO_EXPANDERS];
 
 static bool mainBoardInitI2CMux();
@@ -18,6 +20,9 @@ SPIClass* getMainBoardSPI(){
 int MainBoardStart(){
     Serial.begin(115200);
     Serial.println("Initializing");
+    MainBoardSerialAlt.begin(MAIN_BOARD_UART_1_BAUD_RATE, SERIAL_8N1, MAIN_BOARD_UART_1_RX, MAIN_BOARD_UART_1_TX);
+
+
     mainBoardSpi.begin(MAIN_BOARD_SCK, MAIN_BOARD_MISO, MAIN_BOARD_MOSI); // CLK, MISO, MOSI
     mainBoardSpi.setFrequency(MAIN_BOARD_SPI_FREQ);
     pinMode(MAIN_BOARD_WS2812_PIN, OUTPUT);

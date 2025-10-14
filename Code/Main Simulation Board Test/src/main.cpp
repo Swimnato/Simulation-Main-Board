@@ -14,6 +14,7 @@
 #define TEST_I2C_MUX false
 #define TEST_DIGITAL false
 #define TEST_ANALOG false
+#define TEST_UART_ALT true
 
 #define LED_COUNT 1
 
@@ -21,6 +22,7 @@ Servo servo;
 
 Adafruit_NeoPixel strip(LED_COUNT, MAIN_BOARD_WS2812_PIN, NEO_GRB + NEO_KHZ800);
 
+extern HardwareSerial MainBoardSerialAlt;
 
 byte mac[] = {
   0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED
@@ -344,6 +346,20 @@ void loop() {
     scanI2C();
   }
   delay(1000);
+  #endif
+  #if TEST_UART_ALT
+  static bool init = false;
+  if(!init){
+    init = true;
+    Serial.println("Beginning Serial Test");
+    MainBoardSerialAlt.println("Beginning Serial Test");
+  }
+  while(Serial.available()){
+    MainBoardSerialAlt.write(Serial.read());
+  }
+  while(MainBoardSerialAlt.available()){
+    Serial.write(MainBoardSerialAlt.read());
+  }
   #endif
 }
 

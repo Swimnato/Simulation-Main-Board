@@ -11,7 +11,7 @@
 #define TEST_SERVO false
 #define TEST_WS2812 false
 #define TEST_I2C true
-#define TEST_DIGITAL true
+#define TEST_DIGITAL false
 #define TEST_ANALOG false
 
 #define LED_COUNT 1
@@ -247,13 +247,13 @@ void loop() {
     Serial.print("Getting analog reading from port ");
     Serial.print(iterator);
     Serial.print(" : ");
-    Serial.println(getAnalogMux(iterator));
+    Serial.println(mainBoardGetAnalogMux(iterator));
     iterator++;
     if(iterator == 128){
       iterator = 0;
       unsigned long startTime = micros();
       while(iterator != 128){
-        getAnalogMux(iterator);
+        mainBoardGetAnalogMux(iterator);
         iterator++;
       }
       unsigned long endTime = micros();
@@ -299,7 +299,40 @@ void loop() {
   scanI2C();
   #endif
   #if TEST_DIGITAL
-  
+  static bool init = false;
+  if(!init){
+    for(int i = 0; i < 64; i++){
+      mainBoardDigitalPinMode(i, INPUT);
+    }
+    for(int i = 0; i < 32; i++){
+      mainBoardDigitalPinMode(i < 16 ? i + 16 : i + 32, OUTPUT);
+    }
+    init = true;
+  }
+  for(int i = 0; i < 32; i++){
+    int index = i < 16 ? i : i + 16;
+    Serial.print("Pin ");
+    Serial.print(index);
+    Serial.print(" is ");
+    Serial.println(mainBoardGetDigitalInput(index));
+  }
+  for(int chip = 0; chip < 4; chip++){
+    Serial.print("Chip One Is ");
+    Serial.println(mainBoardGet16DigitalInput(chip), BIN);
+  }
+  for(int i = 0; i < 32; i++){
+    int index = i < 16 ? i + 16 : i + 32;
+    mainBoardWriteDigitalOutput(index, HIGH);
+  }
+  for(int i = 0; i < 3; i++){
+    delay(1000); 
+    for(int chip = 0; chip < 4; chip++){
+      if(chip == 1 || chip == 3){
+        mainBoardWrite16DigitalOutput(chip, 0xFFFF * (i % 2));
+      }
+    }
+  }
+  delay(1000);
   #endif
 }
 

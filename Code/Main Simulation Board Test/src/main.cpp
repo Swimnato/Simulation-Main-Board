@@ -10,7 +10,8 @@
 #define TEST_SD false
 #define TEST_SERVO false
 #define TEST_WS2812 false
-#define TEST_I2C true
+#define TEST_I2C false
+#define TEST_I2C_MUX false
 #define TEST_DIGITAL false
 #define TEST_ANALOG false
 
@@ -331,6 +332,16 @@ void loop() {
         mainBoardWrite16DigitalOutput(chip, 0xFFFF * (i % 2));
       }
     }
+  }
+  delay(1000);
+  #endif
+  #if TEST_I2C_MUX
+  for(int i = 0; i < 8; i++){
+    Serial.print("Setting I2C Bus ");
+    Serial.print(i);
+    Serial.print(" returned: ");
+    Serial.println(mainBoardSetI2CBus(i));
+    scanI2C();
   }
   delay(1000);
   #endif

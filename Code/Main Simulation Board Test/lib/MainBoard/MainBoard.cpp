@@ -3,9 +3,13 @@
 #define MAIN_BOARD_CPP
 #include <TCA9555.h>
 
+static bool I2CMuxInit = false;
+
 SPIClass mainBoardSpi = SPIClass(HSPI);
 
 TCA9535* IO_Expanders[NUM_DIGITAL_IO_EXPANDERS];
+
+static bool mainBoardInitI2CMux();
 
 SPIClass* getMainBoardSPI(){
     return &mainBoardSpi;
@@ -23,11 +27,11 @@ int MainBoardStart(){
     Wire.setPins(MAIN_BOARD_I2C_SDA, MAIN_BOARD_I2C_SCL);
     Wire.begin();
 
+    I2CMuxInit = mainBoardInitI2CMux();
+
     for(int i = 0; i < NUM_DIGITAL_IO_EXPANDERS; i++){
-        IO_Expanders[i] = new TCA9535(DIGITAL_IO_EXPANDER_BASE_ADDR + i);
+        IO_Expanders[i] = new TCA9535(MAIN_BOARD_DIGITAL_IO_EXPANDER_BASE_ADDR + i);
         if(IO_Expanders[i]->begin()){
-            Serial.print("Set INPUT on digital IO expander ");
-            Serial.println(i+1);
             IO_Expanders[i]->pinMode16(0xFFFF);
         } else{
             Serial.print("Failed to initialize digital IO expander ");
@@ -36,6 +40,20 @@ int MainBoardStart(){
     }
     
     return 0;
+}
+
+bool mainBoardSetI2CBus(uint8_t bus){
+    if(bus >= 8 || !I2CMuxInit){
+        return false;
+    }
+    Wire.beginTransmission(MAIN_BOARD_I2C_MUX_ADDR);
+    Wire.write(0x01 << bus);
+    return !Wire.endTransmission();
+}
+
+static bool mainBoardInitI2CMux(){
+    Wire.beginTransmission(MAIN_BOARD_I2C_MUX_ADDR);
+    return !Wire.endTransmission();
 }
 
 bool mainBoardDigitalPinMode(uint8_t pin, uint8_t mode){

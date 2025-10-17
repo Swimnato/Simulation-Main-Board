@@ -14,7 +14,7 @@
 #define TEST_I2C_MUX false
 #define TEST_DIGITAL false
 #define TEST_ANALOG false
-#define TEST_UART_ALT true
+#define TEST_UART_ALT false
 
 #define LED_COUNT 1
 
@@ -30,7 +30,7 @@ byte mac[] = {
 IPAddress ip(192, 168, 1, 177);
 EthernetServer server(80);
 
-SdFs sd;
+extern SdFs mainBoardSD;
 
 // Fill strip pixels one after another with a color. Strip is NOT cleared
 // first; anything there will be covered pixel by pixel. Pass in color
@@ -200,21 +200,26 @@ void setup() {
   MainBoardStart();
 
   #if TEST_SD
-  if (!sd.cardBegin(SdSpiConfig(MAIN_BOARD_SD_CS, SHARED_SPI, SD_SCK_MHZ(133)))) {
-    Serial.println(F(
-        "\nSD initialization failed.\n"
-        "Do not reformat the card!\n"
-        "Is the card correctly inserted?\n"
-        "Is there a wiring/soldering problem?\n"));
-    if (isSpi(SdSpiConfig(MAIN_BOARD_SD_CS, SHARED_SPI, SD_SCK_MHZ(133)))) {
-      Serial.println(F(
-          "Is SD_CS_PIN set to the correct value?\n"
-          "Does another SPI device need to be disabled?\n"));
+
+  Serial.println("Testing SD write");
+  FsFile file = mainBoardSD.open("test.txt", FILE_WRITE);
+  file.seek(0);
+  file.write("This was written and read from a file\n");
+  file.flush();
+  file.close();
+  Serial.println("Testing SD read");
+  if(mainBoardSD.exists("test.txt")){
+    FsFile readFile = mainBoardSD.open("test.txt", FILE_READ);
+    int readChar;
+    while(readChar != '\n' && readChar != EOF){
+      readChar = readFile.read();
+      Serial.print((char) readChar);
     }
-    return;
   } else{
-    Serial.println("SD INITIALIZED CORRECTLY");
+    Serial.println("File does not exist!");
   }
+  Serial.println("SD Test Complete");
+  
   #endif
 
   #if TEST_ETHERNET

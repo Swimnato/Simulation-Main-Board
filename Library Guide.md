@@ -15,24 +15,27 @@ After [initializing the board](#GeneralPrerequisites) you are given access to th
 
 ```mainBoardDigitalPinMode(uint8_t pin, uint8_t mode)``` This Initializes the given pin to the funciton you want (INPUT, OUTPUT, the same way as you would for a standard arduino pin. There are no built in pullup/pulldown resistors to enable in software, rather this will depend on what resistors have been installed on the physical board).
 
-```mainBoard16DigitalPinMode(uint8_t chip, uint16_t mode)``` This lets you set all 16 pins at once. This is a wrapper around someone elses' code and best I can tell a 1 bit is setting that pin as an input, and a 0 is setting it as an output.
+```mainBoard16DigitalPinMode(uint8_t chip, uint16_t mode)``` This lets you set all 16 pins at once. A 1 bit is setting that pin as an input, and a 0 is setting it as an output. lsb is pin 1 and msb is pin 16.
 
 ```mainBoardGetDigitalInput(uint8_t pin)``` Reads a digital pin and returns the result.
 
-```uint16_t mainBoardGet16DigitalInput(uint8_t chip)``` Reads an entire port, returns a 16 bit int, lsb is pin 1 and msb is pin 16
+```uint16_t mainBoardGet16DigitalInput(uint8_t chip)``` Reads an entire port, returns a 16 bit int, lsb is pin 1 and msb is pin 16.
 
 ```mainBoardWriteDigitalOutput(uint8_t pin, uint8_t val)``` Writes a single digital output.
 
-```bool mainBoardWrite16DigitalOutput(uint8_t chip, uint16_t val)``` Writes an entire port's digital output. lsb is pin 1 and msb is pin 16
+```bool mainBoardWrite16DigitalOutput(uint8_t chip, uint16_t val)``` Writes an entire port's digital output. lsb is pin 1 and msb is pin 16.
+
+
 
 ## UART 1
-After [initializing the board](#GeneralPrerequisites)
+After [initializing the board](#GeneralPrerequisites) You can make calls to the serial bus. In your global scope you can import the Serial object by using ```extern HardwareSerial MainBoardSerialAlt;``` After it is imported you use it just like the standard ```Serial``` object. For example: ```MainBoardSerialAlt.write()```, ```MainBoardSerialAlt.println()```, etc.
 
 ## I2C Mux
-After [initializing the board](#GeneralPrerequisites)
+After [initializing the board](#GeneralPrerequisites) you can set your active I2C Bus by calling ```mainBoardSetI2CBus(uint8_t bus)```. Bus is the bus you wish to switch to. You can choose between bus 0-7 (A-H).
 
 ## SD
-After [initializing the board](#GeneralPrerequisites)
+After [initializing the board](#GeneralPrerequisites) you need to include the SD card main driver by placing ```extern SdFs mainBoardSD``` in your global variables scope.
+You then use the same syntax as the standard SDFat Library (We are specifically using the adafruit fork) Use ```FsFile``` for your file data type.
 
 ## Ethernet
 After [initializing the board](#GeneralPrerequisites)

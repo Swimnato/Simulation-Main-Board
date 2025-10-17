@@ -2,6 +2,7 @@
 #ifndef MAIN_BOARD_CPP
 #define MAIN_BOARD_CPP
 #include <TCA9555.h>
+#include <SdFat.h>
 
 #define VERSION_MAIN_BOARD_CPP "REV: X0"
 
@@ -11,7 +12,9 @@ SPIClass mainBoardSpi = SPIClass(HSPI);
 
 HardwareSerial MainBoardSerialAlt(1);
 
-TCA9535* IO_Expanders[NUM_DIGITAL_IO_EXPANDERS];
+SdFs mainBoardSD;
+
+static TCA9535* IO_Expanders[NUM_DIGITAL_IO_EXPANDERS];
 
 static bool mainBoardInitI2CMux();
 
@@ -19,17 +22,30 @@ SPIClass* getMainBoardSPI(){
     return &mainBoardSpi;
 }
 
-int MainBoardStart(){
+int MainBoardStart(){;
+    pinMode(MAIN_BOARD_WS2812_PIN, OUTPUT);
+    pinMode(MAIN_BOARD_SPKR, OUTPUT);
+    pinMode(MAIN_BOARD_ANALOG_MUX_IN, INPUT);
     Serial.begin(115200);
     Serial.println("Initializing");
     MainBoardSerialAlt.begin(MAIN_BOARD_UART_1_BAUD_RATE, SERIAL_8N1, MAIN_BOARD_UART_1_RX, MAIN_BOARD_UART_1_TX);
 
-
     mainBoardSpi.begin(MAIN_BOARD_SCK, MAIN_BOARD_MISO, MAIN_BOARD_MOSI); // CLK, MISO, MOSI
     mainBoardSpi.setFrequency(MAIN_BOARD_SPI_FREQ);
-    pinMode(MAIN_BOARD_WS2812_PIN, OUTPUT);
-    pinMode(MAIN_BOARD_SPKR, OUTPUT);
-    pinMode(MAIN_BOARD_ANALOG_MUX_IN, INPUT);
+
+    if (!mainBoardSD.begin(SdSpiConfig(MAIN_BOARD_SD_CS, SHARED_SPI, MAIN_BOARD_SD_SPEED))) { 
+        Serial.println(F(
+            "\nSD initialization failed.\n"
+            "Do not reformat the card!\n"
+            "Is the card correctly inserted?\n"
+            "Is there a wiring/soldering problem?\n"));
+        if (isSpi(SdSpiConfig(MAIN_BOARD_SD_CS, SHARED_SPI, MAIN_BOARD_SD_SPEED))) {
+        Serial.println(F(
+            "Is SD_CS_PIN set to the correct value?\n"
+            "Does another SPI device need to be disabled?\n"));
+        }
+    }
+
 
     Wire.setPins(MAIN_BOARD_I2C_SDA, MAIN_BOARD_I2C_SCL);
     Wire.begin();

@@ -7,14 +7,14 @@
 #include <SdFat.h>
 
 #define TEST_ETHERNET false
-#define TEST_SD false
+#define TEST_SD true
 #define TEST_SERVO false
 #define TEST_WS2812 false
-#define TEST_I2C false
+#define TEST_I2C true
 #define TEST_I2C_MUX false
-#define TEST_DIGITAL false
-#define TEST_ANALOG false
-#define TEST_UART_ALT false
+#define TEST_DIGITAL true
+#define TEST_ANALOG true
+#define TEST_UART_ALT true
 
 #define LED_COUNT 1
 
@@ -197,7 +197,7 @@ void scanEthClients(){
 }
 
 void setup() {
-  MainBoardStart();
+  MainBoardStart(TEST_SD);
 
   #if TEST_SD
 
@@ -268,7 +268,7 @@ void loop() {
       Serial.print("Read all ports in ");
       Serial.print(endTime - startTime);
       Serial.println("us");
-      delay(20000);
+      delay(1000);
     }
   }
   
@@ -303,19 +303,19 @@ void loop() {
     delay(10);
   }
   #endif
-  #if TEST_I2C & !TEST_DIGITAL
+  #if TEST_I2C
   scanI2C();
   #endif
   #if TEST_DIGITAL
-  static bool init = false;
-  if(!init){
+  static bool i2Cinit = false;
+  if(!i2Cinit){
     for(int i = 0; i < 64; i++){
       mainBoardDigitalPinMode(i, INPUT);
     }
     for(int i = 0; i < 32; i++){
       mainBoardDigitalPinMode(i < 16 ? i + 16 : i + 32, OUTPUT);
     }
-    init = true;
+    i2Cinit = true;
   }
   for(int i = 0; i < 32; i++){
     int index = i < 16 ? i : i + 16;
@@ -353,9 +353,9 @@ void loop() {
   delay(1000);
   #endif
   #if TEST_UART_ALT
-  static bool init = false;
-  if(!init){
-    init = true;
+  static bool UARTinit = false;
+  if(!UARTinit){
+    UARTinit = true;
     Serial.println("Beginning Serial Test");
     MainBoardSerialAlt.println("Beginning Serial Test");
   }

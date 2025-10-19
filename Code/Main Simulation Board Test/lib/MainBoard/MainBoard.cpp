@@ -22,7 +22,7 @@ SPIClass* getMainBoardSPI(){
     return &mainBoardSpi;
 }
 
-int MainBoardStart(){;
+int MainBoardStart(bool initSD){;
     pinMode(MAIN_BOARD_WS2812_PIN, OUTPUT);
     pinMode(MAIN_BOARD_SPKR, OUTPUT);
     pinMode(MAIN_BOARD_ANALOG_MUX_IN, INPUT);
@@ -32,8 +32,9 @@ int MainBoardStart(){;
 
     mainBoardSpi.begin(MAIN_BOARD_SCK, MAIN_BOARD_MISO, MAIN_BOARD_MOSI); // CLK, MISO, MOSI
     mainBoardSpi.setFrequency(MAIN_BOARD_SPI_FREQ);
+    mainBoardSpi.begin();
 
-    if (!mainBoardSD.begin(SdSpiConfig(MAIN_BOARD_SD_CS, SHARED_SPI, MAIN_BOARD_SD_SPEED))) { 
+    if (initSD && !mainBoardSD.begin(SdSpiConfig(MAIN_BOARD_SD_CS, SHARED_SPI, MAIN_BOARD_SD_SPEED, &mainBoardSpi))) { 
         Serial.println(F(
             "\nSD initialization failed.\n"
             "Do not reformat the card!\n"

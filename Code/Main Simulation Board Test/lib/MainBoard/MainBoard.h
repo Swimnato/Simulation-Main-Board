@@ -5,6 +5,6 @@
 #include "MainBoard.cpp"
 #include <TCA9555.h>
 
-int MainBoardStart();
+int MainBoardStart(bool initSD = true);
 
 #endif

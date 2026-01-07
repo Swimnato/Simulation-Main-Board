@@ -7,14 +7,14 @@
 #include <SdFat.h>
 
 #define TEST_ETHERNET false
-#define TEST_SD true
+#define TEST_SD false
 #define TEST_SERVO false
 #define TEST_WS2812 false
 #define TEST_I2C true
-#define TEST_I2C_MUX false
-#define TEST_DIGITAL true
-#define TEST_ANALOG true
-#define TEST_UART_ALT true
+#define TEST_I2C_MUX true
+#define TEST_DIGITAL false
+#define TEST_ANALOG false
+#define TEST_UART_ALT false
 
 #define LED_COUNT 1
 
@@ -28,7 +28,10 @@ byte mac[] = {
   0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED
 };
 IPAddress ip(192, 168, 1, 177);
+
+#if TEST_ETHERNET
 EthernetServer server(80);
+#endif
 
 extern SdFs mainBoardSD;
 
@@ -145,6 +148,7 @@ void scanI2C(){
 }
 
 void scanEthClients(){
+  #if TEST_ETHERNET
   EthernetClient client = server.available();
   if (client) {
     Serial.println("new client");
@@ -194,6 +198,7 @@ void scanEthClients(){
     client.stop();
     Serial.println("client disconnected");
   }
+  #endif
 }
 
 void setup() {

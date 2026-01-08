@@ -1,19 +1,22 @@
 Upload Main Board CAM Data A0.zip to JLCPCB (go to JLCPCB.com >> Instant Quote >> Drag zip into upload folder)
 
+WAIT FOR THE PCB TO FINISH UPLOADING BEFORE EDITING PARAMETERS
+
 Changes needed:
 Surface Finish - LeadFree HASL
 Enable PCB Assembly
 Assemble Top Side
 PCBA Type - Standard
 Qty - 5
-Confirm Parts Placement - Yes
-- Do Not Confirm Automatically
+Confirm Parts Placement - Yes (ON POPUP "Do Not Confirm Automatically" to true) 
 Board Cleaning - Yes
 
 
 Hit NEXT
 
 Verify the top side is showing (You should see text "Main Panel Board" in the center)
+
+Hit NEXT
 
 Upload BOM and CPL File
 - BOM is "BOM JLCPCB Assembly A0.xlsx"
@@ -26,10 +29,12 @@ AFTER HITTING PROCESS BECAUSE WE HAVE DNP COMPONENTS, THIS IS EXPECTED, PRESS CO
 
 MAKE SURE all parts are selected, sometimes it de-selects the 0.1uF capacitors MAKE SURE THEY POPULATE
 
-On the next screen you will see a render of the PCB make sure that the parts are all populated
+Hit NEXT
+
+You will see a render of the PCB make sure that the parts are all populated
 Exceptions include Through Hole components, R256, R257, R188, R158, R154, R153, as well as 4 out of the 8 rows of Capacitors and resistors under U11-U23
 
-You can verify DNP parts by using the 3D model or PNG attached. To open the 3D model go to https://3dviewer.net/ and upload "Main Board 3D Model A0.3mf" to see what it should look like (Through Hole parts can be ignored). The PNG is of the JLCPCB screen these files gave me, which is correct.
+You can verify DNP parts by using the PNG attached or 3D model. The PNG is of the JLCPCB screen these files gave me, which is correct, this is a better reference than the 3D model. To open the 3D model go to https://3dviewer.net/ and upload "Main Board 3D Model A0.3mf" to see what it should look like (Through Hole parts can be ignored). 
 
 If you see any other missing parts, make sure all the boxes are checked in the parts menu first, then if they are contact me directly.
 

@@ -9,14 +9,14 @@
 #define TEST_ETHERNET false
 #define TEST_SD false
 #define TEST_SERVO false
-#define TEST_WS2812 false
-#define TEST_I2C true
-#define TEST_I2C_MUX true
+#define TEST_WS2812 true
+#define TEST_I2C false
+#define TEST_I2C_MUX false
 #define TEST_DIGITAL false
 #define TEST_ANALOG false
 #define TEST_UART_ALT false
 
-#define LED_COUNT 1
+#define LED_COUNT 20
 
 Servo servo;
 

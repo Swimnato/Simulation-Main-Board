@@ -8590,6 +8590,16 @@
 		)
 		(uuid "79c02611-2eb1-45f6-bbe9-f81900d4cc37")
 	)
+	(text "For possible\nLogic Level\nConverter"
+		(exclude_from_sim no)
+		(at 56.134 78.486 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+		(uuid "b8eafa78-c9a4-4f77-bab8-853a196469eb")
+	)
 	(text "Weak Pulldown on GPIO45\nSo that SPI doesn't change \nto 1V8 instead of 3V3\nESP has internall pulldown\nThis is for redundancy"
 		(exclude_from_sim no)
 		(at 36.322 248.92 0)
@@ -15866,6 +15876,73 @@
 		)
 	)
 	(symbol
+		(lib_id "Connector:TestPoint")
+		(at 55.88 66.04 180)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "1b3f9d44-ba84-4ebd-9c21-1e5128f09acf")
+		(property "Reference" "TP39"
+			(at 55.88 75.184 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "TestPoint"
+			(at 57.404 75.184 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+				(hide yes)
+			)
+		)
+		(property "Footprint" "Connector_Pin:Pin_D1.0mm_L10.0mm"
+			(at 50.8 66.04 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 50.8 66.04 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "test point"
+			(at 55.88 66.04 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "877f32dd-ed6e-42c0-8f53-ef3b91aac809")
+		)
+		(instances
+			(project "Main Board"
+				(path "/2aa9f2df-d06f-4a30-97ab-fb4628a40b5a"
+					(reference "TP39")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Device:LED")
 		(at 139.7 234.95 90)
 		(unit 1)
@@ -18766,6 +18843,72 @@
 			(project ""
 				(path "/2aa9f2df-d06f-4a30-97ab-fb4628a40b5a"
 					(reference "U1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:+5V")
+		(at 55.88 66.04 0)
+		(mirror y)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "3d69bb9d-c9ca-40e6-90eb-6872840bf09d")
+		(property "Reference" "#PWR0129"
+			(at 55.88 69.85 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "+5V_NEOPIXEL"
+			(at 58.928 61.976 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 55.88 66.04 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 55.88 66.04 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"+5V\""
+			(at 55.88 66.04 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "9db14a93-5517-4111-845e-80270c2f34df")
+		)
+		(instances
+			(project "Main Board"
+				(path "/2aa9f2df-d06f-4a30-97ab-fb4628a40b5a"
+					(reference "#PWR0129")
 					(unit 1)
 				)
 			)
@@ -30257,6 +30400,73 @@
 		)
 	)
 	(symbol
+		(lib_id "Connector:TestPoint")
+		(at 50.8 66.04 180)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "e2604952-6158-4959-abd0-cf821dcf9e20")
+		(property "Reference" "TP38"
+			(at 50.8 75.184 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "TestPoint"
+			(at 52.324 75.184 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+				(hide yes)
+			)
+		)
+		(property "Footprint" "Connector_Pin:Pin_D1.0mm_L10.0mm"
+			(at 45.72 66.04 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 45.72 66.04 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "test point"
+			(at 50.8 66.04 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "4453ceb1-7755-4db2-91f6-c35975ae1e04")
+		)
+		(instances
+			(project "Main Board"
+				(path "/2aa9f2df-d06f-4a30-97ab-fb4628a40b5a"
+					(reference "TP38")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "power:+5V")
 		(at 60.96 207.01 0)
 		(unit 1)
@@ -31659,6 +31869,71 @@
 			(project "Main Board"
 				(path "/2aa9f2df-d06f-4a30-97ab-fb4628a40b5a"
 					(reference "R1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:+3.3V")
+		(at 50.8 66.04 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "f35eac82-dfc3-4e14-a8bb-a4bf0f1df109")
+		(property "Reference" "#PWR0128"
+			(at 50.8 69.85 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "+3.3V"
+			(at 47.498 61.976 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 50.8 66.04 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 50.8 66.04 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"+3.3V\""
+			(at 50.8 66.04 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "b0087908-2152-4429-a6fc-ea303b8ed75c")
+		)
+		(instances
+			(project "Main Board"
+				(path "/2aa9f2df-d06f-4a30-97ab-fb4628a40b5a"
+					(reference "#PWR0128")
 					(unit 1)
 				)
 			)
